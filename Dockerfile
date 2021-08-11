@@ -1,11 +1,12 @@
-FROM node:alpine
+FROM node:alpine as build-stage
 
 WORKDIR /app
 ADD ./website-zn.tar  /app/
-RUN  yarn config set registry https://registry.npm.taobao.org --global \
-&& yarn config set disturl https://npm.taobao.org/dist --global \
-&& yarn install
-
-EXPOSE 3000
-CMD ["yarn", "run", "start"]
-
+RUN  yarn build
+ 
+# production stage
+FROM nginx:latest as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+ 
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
