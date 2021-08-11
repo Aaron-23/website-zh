@@ -6,5 +6,4 @@ RUN cd website-zn/ \
 && yarn install
 
 EXPOSE 3000
-ENTRYPOINT ["yarn"]
-CMD ["start"]
+CMD ["yarn", "run", "start"]
