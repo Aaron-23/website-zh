@@ -3,7 +3,8 @@ FROM node:alpine
 WORKDIR /app
 ADD ./website-zn.tar  /app/
 RUN cd website-zn/ \
-&& yarn install \
-&& yarn start
+&& yarn install
 
 EXPOSE 3000
+ENTRYPOINT ["yarn"]
+CMD ["start"]
