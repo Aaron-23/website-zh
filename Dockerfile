@@ -2,8 +2,7 @@ FROM node:alpine
 
 WORKDIR /app
 ADD ./website-zn.tar  /app/
-RUN cd website-zn/ \
-&& yarn config set registry https://registry.npm.taobao.org --global \
+RUN  yarn config set registry https://registry.npm.taobao.org --global \
 && yarn config set disturl https://npm.taobao.org/dist --global \
 && yarn install
 
