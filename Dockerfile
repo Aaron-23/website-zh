@@ -2,11 +2,8 @@ FROM node:alpine as build-stage
 
 WORKDIR /app
 ADD ./website-zn.tar  /app/
-RUN  yarn build
+RUN  yarn install 
+COPY ./package.json /app
+EXPOSE 3000
  
-# production stage
-FROM nginx:latest as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
- 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["yarn", "start"]
